@@ -11,8 +11,7 @@ import chip.Chip;
  *
  * @author Gui
  */
-// stop at this part:
-//https://youtu.be/LDcJ8_gG4Jc?list=PL5PyurErl12czoLyYD8za68d61T_OZsP2
+
 public class Main {
     public static void main(String[] args){
         Chip c = new Chip();
