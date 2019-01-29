@@ -6,19 +6,46 @@
 package emu;
 
 import chip.Chip;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Gui
  */
-// stop at this part:
-//https://youtu.be/LDcJ8_gG4Jc?list=PL5PyurErl12czoLyYD8za68d61T_OZsP2
-public class Main {
+
+public class Main extends Thread{
+    
+    private Chip chip8;
+    private ChipFrame frame;
+    
+    public Main(){
+        chip8 = new Chip();
+        chip8.init();
+        System.out.println(System.getProperty("user.dir"));
+        chip8.loadProgram("./pong2.c8");
+        frame = new ChipFrame(chip8);    
+    }
+    
+    public void run(){
+        while(true){
+            chip8.run();
+            if(chip8.needsRedraw()){
+                frame.repaint();
+                chip8.removeDrawFlag();
+            }
+            try {
+                Thread.sleep(1600);
+            } catch (InterruptedException ex) {
+                //none
+            }
+        }
+        
+    }
+    
     public static void main(String[] args){
-        Chip c = new Chip();
-        c.init();
-        //c.run();
-        ChipFrame frame = new ChipFrame(c);
+        Main main = new Main();
+        main.start();
     }
     
 }
